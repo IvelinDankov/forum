@@ -10,8 +10,8 @@ import { ApiService } from '../api.js';
 export class RecentPosts implements OnInit {
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
-    this.apiService.loadPosts().subscribe((value) => {
+  ngOnInit(): void {
+    this.apiService.loadPosts(5).subscribe((value) => {
       console.log(value);
     });
   }
