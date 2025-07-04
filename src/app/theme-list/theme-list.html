@@ -1,8 +1,6 @@
 <!-- theme component  -->
 
-@if (!themeList) {
-<app-loader></app-loader>
-} @else { @for (theme of themeList; track theme._id) {
+@for (theme of themeList; track theme._id) {
 
 <div class="theme-container">
   <div class="theme-name-wrapper">
@@ -20,28 +18,6 @@
         <div class="subscribers">
           <!-- <button class="subscribe">Subscribe</button> -->
           <p>Subscribers: <span>{{theme.subscribers.length}}</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-}
-<div class="theme-container">
-  <div class="theme-name-wrapper">
-    <div class="theme-name">
-      <a href="#" class="normal">
-        <h2>JS Advanced course</h2>
-      </a>
-      <div class="columns">
-        <div>
-          <p>Date: <time>2020-04-10T15:08:28.431Z</time></p>
-          <div class="nick-name">
-            <p>Username: <span>Johny</span></p>
-          </div>
-        </div>
-        <div class="subscribers">
-          <!-- <button class="unsubscribe">Unsubscribe</button> -->
-          <p>Subscribers: <span>123</span></p>
         </div>
       </div>
     </div>

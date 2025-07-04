@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.js';
 import { IPost } from '../../interfaces/post.js';
 import { Loader } from '../shared/loader/loader';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recent-posts',
@@ -9,14 +10,16 @@ import { Loader } from '../shared/loader/loader';
   templateUrl: './recent-posts.html',
   styleUrl: './recent-posts.scss',
 })
-export class RecentPosts implements OnInit {
+export class RecentPosts implements OnInit, OnDestroy {
   postList: IPost[] | null = null;
   errorFetchingData = false;
+
+  private subscibe!: Subscription;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.loadPosts(5).subscribe({
+    this.subscibe = this.apiService.loadPosts(5).subscribe({
       next: (value) => {
         this.postList = value;
       },
@@ -25,5 +28,9 @@ export class RecentPosts implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscibe.unsubscribe();
   }
 }

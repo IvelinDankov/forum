@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.js';
 import { ITheme } from '../../interfaces/theme.js';
-import { Loader } from '../shared/loader/loader';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-theme-list',
-  imports: [Loader],
+  imports: [],
   templateUrl: './theme-list.html',
   styleUrl: './theme-list.scss',
 })
-export class ThemeList implements OnInit {
+export class ThemeList implements OnInit, OnDestroy {
   themeList: ITheme[] | null = null;
+
+  private subscriptions!: Subscription;
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
-    this.apiService.loadThemes().subscribe({
+  ngOnInit(): void {
+    this.subscriptions = this.apiService.loadThemes().subscribe({
       next: (value) => {
         this.themeList = value;
       },
@@ -23,5 +25,9 @@ export class ThemeList implements OnInit {
         console.error('Failed to load themes', err);
       },
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

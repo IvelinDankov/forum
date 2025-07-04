@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service.js';
 
@@ -9,11 +9,13 @@ import { AuthService } from '../auth.service.js';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private router: Router, private authService: AuthService) {
+  private router = inject(Router);
+
+  constructor(private authService: AuthService) {
     this.authService.user = {
       firstName: 'Ivan',
       lastName: 'Petrov',
     };
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
   }
 }
