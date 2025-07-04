@@ -11,6 +11,7 @@ import { Loader } from '../shared/loader/loader';
 })
 export class RecentPosts implements OnInit {
   postList: IPost[] | null = null;
+  errorFetchingData = false;
 
   constructor(private apiService: ApiService) {}
 
@@ -19,7 +20,10 @@ export class RecentPosts implements OnInit {
       next: (value) => {
         this.postList = value;
       },
-      error: (err) => {},
+      error: (err) => {
+        this.errorFetchingData = true;
+        console.log(err);
+      },
     });
   }
 }

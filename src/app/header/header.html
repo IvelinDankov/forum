@@ -1,17 +1,27 @@
 <header>
   <div class="mini-navbar-wrap">
     <div class="logo-wrap">
-      <img src="/images/logo.png" />
-      <p class="logo">SoftUni Forum</p>
+      <p class="logo"><span class="logo">SoftUni Forum</span></p>
     </div>
     <div class="mini-navbar">
       <ul>
+        @if (isLoggedIn) {
+
         <li>
-          <a href="#">Login</a>
+          <a routerLink="/auth/profile">John's profile</a>
         </li>
         <li>
-          <a href="#">Register</a>
+          <a routerLink="/auth/logout">Logout</a>
         </li>
+        } @else {
+
+        <li>
+          <a routerLink="/auth/login">Login</a>
+        </li>
+        <li>
+          <a routerLink="/auth/register">Register</a>
+        </li>
+        }
       </ul>
     </div>
   </div>
